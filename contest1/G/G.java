@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 
-public class G {
+public class G{
 
     public static long[] mergeSort(long[] arr, long right) {
         if (arr == null) {
@@ -43,21 +43,21 @@ public class G {
     }
 
     public static boolean check(long[] arr, long mid, long k) {
-        long n = 0;
+        long n = 1;
         long lastStart = arr[0];
-        for (int i = 1; i < arr.length; ++i) {
+        for (int i = 1; i < arr.length; i++) {
             if (arr[i] - lastStart > mid) {
                 n++;
                 lastStart = arr[i];
             }
         }
-        return (n >= k);
+        return (n > k);
     }
 
-    static long binSearching(long[] arr, long count, long k) {
+    static long binSearching(long[] arr, int count, long k) {
 
-        long start = 1;
-        long end = arr[(int) (count - 1)] - arr[0] + 200;
+        long start = -1;
+        long end = Math.max(arr[count - 1] - arr[0], 1);
 
         while (end - start > 1) {
             long mid = (end + start) / 2;
@@ -66,11 +66,6 @@ public class G {
                 start = mid;
             } else {
                 end = mid;
-            }
-        }
-        for (long i = Math.max(0, start - 30); i < start + 30; i++) {
-            if (!check(arr, i, k)) {
-                return i;
             }
         }
         return end;
@@ -84,7 +79,7 @@ public class G {
         String[] input_1 = str1.split(" ");
         String[] input_2 = str2.split(" ");
 
-        long count = Long.parseLong(input_1[0]);
+        int count = Integer.parseInt(input_1[0]);
         long k = Long.parseLong(input_1[1]);
         long[] arr = new long[(int) count];
         for (int i = 0; i < count; i++) {
