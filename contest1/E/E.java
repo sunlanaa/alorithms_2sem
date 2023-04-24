@@ -7,34 +7,32 @@ public class E {
     public static long Area(long[] arr) {
         Stack<Integer> stack = new Stack<>();
         long maxArea = 0;
-        int top;
-        long areaTop;
         int i = 0;
         long n = arr.length;
         while (i < n) {
             if (stack.isEmpty() || arr[stack.peek()] <= arr[i]) {
                 stack.push(i++);
             } else {
-                top = stack.pop();
+                int top = stack.pop();
                 int len = 0;
                 if (stack.isEmpty()) {
                     len = i;
                 } else {
                     len = i - stack.peek() - 1;
                 }
-                areaTop = (long) arr[top] * len;
+                long areaTop = (long) arr[top] * len;
                 maxArea = Math.max(maxArea, areaTop);
             }
         }
         while (!stack.empty()) {
-            top = stack.pop();
+            int top = stack.pop();
             int len = 0;
             if (stack.isEmpty()) {
                 len = i;
             } else {
                 len = i - stack.peek() - 1;
             }
-            areaTop = (long) arr[top] * len;
+            long areaTop = (long) arr[top] * len;
             maxArea = Math.max(maxArea, areaTop);
         }
         return maxArea;
