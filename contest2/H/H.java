@@ -1,9 +1,8 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 
-public class H{
+public class H {
 
     public static void quickSort(int[] arr, int left, int right) {
         if (left < right) {
@@ -32,16 +31,20 @@ public class H{
 
 
     public static void main(String[] args) throws IOException {
-        BufferedReader reader1 = new BufferedReader(new InputStreamReader(System.in));
-        String s1 = reader1.readLine();
-        int[] arr = new int[Integer.parseInt(s1)];
-        for (int i = 0; i < arr.length; i++) {
-            String str = reader1.readLine();
-            arr[i] = Integer.parseInt(str);
+        try (BufferedReader reader1 = new BufferedReader(new InputStreamReader(System.in))){
+            String s1 = reader1.readLine();
+            int[] arr = new int[Integer.parseInt(s1)];
+            for (int i = 0; i < arr.length; i++) {
+                String str = reader1.readLine();
+                arr[i] = Integer.parseInt(str);
+            }
+            quickSort(arr, 0, arr.length - 1);
+            for (int i : arr) {
+                System.out.print(i + " ");
+            }
         }
-        quickSort(arr, 0, arr.length - 1);
-        for (int i : arr) {
-            System.out.print(i + " ");
+        catch (Exception ex){
+            throw new RuntimeException();
         }
     }
 }
