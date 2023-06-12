@@ -31,7 +31,7 @@ public class H {
 
 
     public static void main(String[] args) throws IOException {
-        try (BufferedReader reader1 = new BufferedReader(new InputStreamReader(System.in))){
+        try (BufferedReader reader1 = new BufferedReader(new InputStreamReader(System.in))) {
             String s1 = reader1.readLine();
             int[] arr = new int[Integer.parseInt(s1)];
             for (int i = 0; i < arr.length; i++) {
@@ -42,9 +42,8 @@ public class H {
             for (int i : arr) {
                 System.out.print(i + " ");
             }
-        }
-        catch (Exception ex){
-            throw new RuntimeException();
+        } catch (Exception ex){
+            System.out.println(ex);
         }
     }
 }
