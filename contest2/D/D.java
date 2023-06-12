@@ -22,7 +22,7 @@ public class D {
     }
 
     public static void main(String[] args) throws IOException {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))){
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
             String strCount = reader.readLine();
             int count = Integer.parseInt(strCount);
             List<Node> arr = new ArrayList<>();
@@ -38,9 +38,8 @@ public class D {
             for (int i = count - 1; i >= 0; i--) {
                 System.out.println(res[i].getSurname() + " " + res[i].getName());
             }
-        }
-        catch (Exception ex){
-            throw new RuntimeException();
+        } catch (Exception ex){
+            System.out.println(ex);
         }
     }
 }
