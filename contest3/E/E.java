@@ -40,21 +40,24 @@ public class RMQ {
     }
 
     public static void main(String[] args) throws IOException {
-        Scanner input = new Scanner(System.in);
-        int size = input.nextInt();
-        int count = input.nextInt();
-        ArrayList<Integer> arr = new ArrayList<>(size);
-        for (int i = 0; i < size; i++) {
-            arr.add(input.nextInt());
-        }
-        RMQ rmq = new RMQ(arr);
-        rmq.buildSparseTable();
-        for (int i = 0; i < count; i++) {
-            int l = input.nextInt();
-            int r = input.nextInt();
-            int firstMin = rmq.FindMin(l - 1, r);
-            int index = arr.indexOf(firstMin);
-            System.out.println(Math.min(rmq.FindMin(l - 1, index), rmq.FindMin(index + 1, r)));
+        try (Scanner input = new Scanner(System.in)) {
+            int size = input.nextInt();
+            int count = input.nextInt();
+            ArrayList<Integer> arr = new ArrayList<>(size);
+            for (int i = 0; i < size; i++) {
+                arr.add(input.nextInt());
+            }
+            RMQ rmq = new RMQ(arr);
+            rmq.buildSparseTable();
+            for (int i = 0; i < count; i++) {
+                int l = input.nextInt();
+                int r = input.nextInt();
+                int firstMin = rmq.FindMin(l - 1, r);
+                int index = arr.indexOf(firstMin);
+                System.out.println(Math.min(rmq.FindMin(l - 1, index), rmq.FindMin(index + 1, r)));
+            }
+        } catch (Exception ex){
+            System.out.println(ex);
         }
     }
 }
