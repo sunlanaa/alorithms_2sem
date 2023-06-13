@@ -4,10 +4,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
 
-import javax.xml.catalog.Catalog;
-
-import java.util.*;
-
 enum VertexStatus {
     WHITE,
     GREY,
