@@ -1,8 +1,12 @@
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Scanner;
 
 public class E {
-    static void Bfs(int first, int second, int number, List<List<Integer>> neighbours) {
+    static List<Integer> bfs(int first, int second, int number, List<List<Integer>> neighbours) {
         List<Boolean> used = new ArrayList<>(Collections.nCopies(number, false));
         List<Integer> parent = new ArrayList<>(Collections.nCopies(number, 0));
         Deque<Integer> queue = new LinkedList<>();
@@ -10,7 +14,7 @@ public class E {
         used.set(first, true);
         parent.set(first, 0);
         int num = first;
-        boolean det = false;
+        boolean isWay= false;
         while (!queue.isEmpty()) {
             num = queue.peek();
             for (int i = 0; i < neighbours.get(num).size(); ++i) {
@@ -21,18 +25,18 @@ public class E {
                         queue.addLast(neighbours.get(num).get(i));
                     } else {
                         parent.set(second, num);
-                        det = true;
+                        isWay = true;
                         break;
                     }
                 }
             }
-            if (det) {
+            if (isWay) {
                 break;
             }
             queue.removeFirst();
         }
-        if (!det) {
-            System.out.println(-1);
+        if (!isWay) {
+            return Collections.emptyList();
         } else {
             List<Integer> ans = new ArrayList<>();
             int vertex = second;
@@ -42,14 +46,11 @@ public class E {
                 vertex = parent.get(f);
                 ans.add(vertex);
             }
-            System.out.println(ans.size() - 1);
-            for (int i = ans.size() - 1; i >= 0; --i) {
-                System.out.print(ans.get(i) + 1 + " ");
-            }
+            return ans;
         }
     }
 
-    static void Worker(int first, int second, int number, List<Pair<Integer, Integer>> connects) {
+    static void worker(int first, int second, int number, List<Pair<Integer, Integer>> connects) {
         List<List<Integer>> neighbours = new ArrayList<>();
         for (int i = 0; i < number; ++i) {
             neighbours.add(new ArrayList<>());
@@ -64,33 +65,52 @@ public class E {
             System.out.println(0);
             System.out.println(first + 1);
         } else {
-            Bfs(first, second, number, neighbours);
+            List<Integer> path = bfs(first, second, number, neighbours);
+            if (path.isEmpty()) {
+                System.out.println(-1);
+            } else {
+                System.out.println(path.size() - 1);
+                for (int i = path.size() - 1; i >= 0; --i) {
+                    System.out.print(path.get(i) + 1 + " ");
+                }
+            }
         }
     }
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int number = scanner.nextInt();
-        int count = scanner.nextInt();
-        List<Pair<Integer, Integer>> connects = new ArrayList<>();
-        int start = scanner.nextInt() - 1;
-        int end = scanner.nextInt() - 1;
-        for (int i = 0; i < count; ++i) {
-            int elemA = scanner.nextInt();
-            int elemB = scanner.nextInt();
-            Pair<Integer, Integer> newPair = new Pair<>(elemA, elemB);
-            connects.add(newPair);
+        try (Scanner scanner = new Scanner(System.in)) {
+            int number = scanner.nextInt();
+            int count = scanner.nextInt();
+            List<Pair<Integer, Integer>> connects = new ArrayList<>();
+            int start = scanner.nextInt() - 1;
+            int end = scanner.nextInt() - 1;
+            for (int i = 0; i < count; ++i) {
+                int elemA = scanner.nextInt();
+                int elemB = scanner.nextInt();
+                Pair<Integer, Integer> newPair = new Pair<>(elemA, elemB);
+                connects.add(newPair);
+            }
+            worker(start, end, number, connects);
+        } catch (Exception ex) {
+            System.out.println(ex);
         }
-        Worker(start, end, number, connects);
     }
 }
-class Pair<L,R> {
+
+class Pair<L, R> {
     private L l;
     private R r;
-    public Pair(L l, R r){
+
+    public Pair(L l, R r) {
         this.l = l;
         this.r = r;
     }
-    public L getL(){ return l; }
-    public R getR(){ return r; }
+
+    public L getL() {
+        return l;
+    }
+
+    public R getR() {
+        return r;
+    }
 }
