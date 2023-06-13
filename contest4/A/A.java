@@ -1,8 +1,10 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 class Hashmap {
-    private int capacity = 10000;
-    private List<Double>[] data;
+    int capacity = 3;
+    List<Double>[] data;
 
     public Hashmap() {
         data = new ArrayList[capacity];
@@ -41,27 +43,47 @@ class Hashmap {
             }
         }
     }
+
+    public void rehash() {
+        List<Double>[] oldData = data;
+        capacity *= 2;
+        data = new ArrayList[capacity];
+        for (int i = 0; i < capacity; i++) {
+            data[i] = new ArrayList<>();
+        }
+        for (List<Double> list : oldData) {
+            for (double value : list) {
+                insert(value);
+            }
+        }
+    }
 }
 
 class A {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int n = scanner.nextInt();
-        Hashmap hash = new Hashmap();
-        for (int i = 0; i < n; i++) {
-            String a = scanner.next();
-            double val = scanner.nextDouble();
-            if (a.equals("+")) {
-                hash.insert(val);
-            } else if (a.equals("-")) {
-                hash.erase(val);
-            } else {
-                if (hash.exists(val)) {
-                    System.out.println("YES");
+        try (Scanner scanner = new Scanner(System.in)) {
+            int n = scanner.nextInt();
+            Hashmap hash = new Hashmap();
+            for (int i = 0; i < n; i++) {
+                String operation = scanner.next();
+                double val = scanner.nextDouble();
+                if (operation.equals("+")) {
+                    hash.insert(val);
+                    if (hash.capacity == hash.data.length * 2) {
+                        hash.rehash();
+                    }
+                } else if (operation.equals("-")) {
+                    hash.erase(val);
                 } else {
-                    System.out.println("NO");
+                    if (hash.exists(val)) {
+                        System.out.println("YES");
+                    } else {
+                        System.out.println("NO");
+                    }
                 }
             }
+        } catch (Exception ex) {
+            System.out.println(ex);
         }
     }
 }
