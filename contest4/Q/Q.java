@@ -1,4 +1,7 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
 
 class DST {
     private int[] parent;
@@ -78,16 +81,19 @@ class Main {
     }
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int n = scanner.nextInt();
-        int m = scanner.nextInt();
-        List<Edge> list = new ArrayList<>();
-        for (int i = 0; i < m; i++) {
-            int from = scanner.nextInt() - 1;
-            int to = scanner.nextInt() - 1;
-            int weight = scanner.nextInt();
-            list.add(new Edge(from, to, weight));
+        try (Scanner scanner = new Scanner(System.in)) {
+            int n = scanner.nextInt();
+            int m = scanner.nextInt();
+            List<Edge> list = new ArrayList<>();
+            for (int i = 0; i < m; i++) {
+                int from = scanner.nextInt() - 1;
+                int to = scanner.nextInt() - 1;
+                int weight = scanner.nextInt();
+                list.add(new Edge(from, to, weight));
+            }
+            System.out.println(kruskal(n, list));
+        } catch (Exception ex) {
+            System.out.println(ex);
         }
-        System.out.println(kruskal(n, list));
     }
 }
